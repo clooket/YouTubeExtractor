@@ -42,7 +42,7 @@
 		FF9AE1671709EE9800064744 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FF9AE1661709EE9800064744 /* Settings.bundle */; };
 		FF9AE16A1709F57300064744 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FF9AE1681709F57300064744 /* Icon.png */; };
 		FF9AE16B1709F57300064744 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF9AE1691709F57300064744 /* Icon@2x.png */; };
-		FF9AE178170A0A8000064744 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF9AE177170A0A8000064744 /* Default-568h@2x.png */; };
+		FF9AE17F170A451F00064744 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF9AE17E170A451F00064744 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -464,7 +464,7 @@
 		FF9AE1661709EE9800064744 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		FF9AE1681709F57300064744 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		FF9AE1691709F57300064744 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		FF9AE177170A0A8000064744 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		FF9AE17E170A451F00064744 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -548,7 +548,7 @@
 				FF9ADE1217084D8900064744 /* YouTubeExtractor-Prefix.pch */,
 				FF9AE1681709F57300064744 /* Icon.png */,
 				FF9AE1691709F57300064744 /* Icon@2x.png */,
-				FF9AE177170A0A8000064744 /* Default-568h@2x.png */,
+				FF9AE17E170A451F00064744 /* Default-568h@2x.png */,
 				FF9AE1661709EE9800064744 /* Settings.bundle */,
 			);
 			name = "Supporting Files";
@@ -1082,7 +1082,7 @@
 				FF9AE1671709EE9800064744 /* Settings.bundle in Resources */,
 				FF9AE16A1709F57300064744 /* Icon.png in Resources */,
 				FF9AE16B1709F57300064744 /* Icon@2x.png in Resources */,
-				FF9AE178170A0A8000064744 /* Default-568h@2x.png in Resources */,
+				FF9AE17F170A451F00064744 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
