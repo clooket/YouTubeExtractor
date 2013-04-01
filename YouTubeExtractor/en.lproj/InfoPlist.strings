@@ -1,0 +1,5 @@
+/* Localized versions of Info.plist keys */
+
+"button.confirm"="OK";
+"YTEViewController.alert.title"="Error";
+"YTEViewControlle.alert.error"="YouTube not reachable, check your internet connection";
