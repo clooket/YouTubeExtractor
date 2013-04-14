@@ -10,8 +10,9 @@
 #import "LBYouTube.h"
 #import "GDataYouTube.h"
 #import <MessageUI/MessageUI.h>
+#import "YTETableViewCell.h"
 
-@interface YTEViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,LBYouTubePlayerControllerDelegate,UISearchBarDelegate,MFMailComposeViewControllerDelegate> {
+@interface YTEViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,LBYouTubePlayerControllerDelegate,UISearchBarDelegate,MFMailComposeViewControllerDelegate,YTETableViewCellProtocol> {
     GDataFeedYouTubeVideo *mEntriesFeed;
     GDataServiceTicket *mEntriesFetchTicket;
     NSError *mEntriesFetchError;

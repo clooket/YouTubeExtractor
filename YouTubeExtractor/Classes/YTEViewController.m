@@ -8,7 +8,6 @@
 
 #import "YTEViewController.h"
 
-#import "YTETableViewCell.h"
 #import "LBYouTubeExtractor.h"
 #import "LBYouTubePlayerController.h"
 #import "DKReachability.h"
@@ -16,7 +15,6 @@
 #import "AFDownloadRequestOperation.h"
 #import "MBProgressHUD.h"
 #import "UIViewController+MJPopupViewController.h"
-
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -24,7 +22,6 @@
 static NSString* const kActivityFeed = @"activity";
 static NSString* const kChannelsFeed = @"channels";
 static NSString* const kMostPopularFeed = @"most popular";
-
 
 @interface YTEViewController ()
 
@@ -35,6 +32,9 @@ static NSString* const kMostPopularFeed = @"most popular";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
+    self.tableView.alpha = 0.0;
+    
     [self fetchAllEntries];
 }
 
@@ -64,7 +64,7 @@ static NSString* const kMostPopularFeed = @"most popular";
     return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
 
-#pragma mark - action
+#pragma mark - YTETableViewCellProtocol
 
 - (void)videoPreviewTapped:(id)sender event:(id)event
 {
@@ -115,27 +115,27 @@ static NSString* const kMostPopularFeed = @"most popular";
     NSString* filename = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m4v",videoId]];
    [self deleteFile:filename];
     
-    //TODO: shouldResume:YES    
     AFDownloadRequestOperation *operation = [[AFDownloadRequestOperation alloc] initWithRequest:request targetPath:filename shouldResume:NO];
   
     YTETableViewCell* cell = (YTETableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-    cell.downloadProgress.hidden = NO;
-    cell.downloadProgress.progress = 0.0;
-    cell.downloadProgress.progressTintColor = [UIColor blueColor];
+    [cell updateProgress:0.0];
     
     [operation setProgressiveDownloadProgressBlock:^(AFDownloadRequestOperation *operation, NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpected, long long totalBytesReadForFile, long long totalBytesExpectedToReadForFile) {
-        cell.downloadProgress.progress = totalBytesReadForFile/(float)totalBytesExpectedToReadForFile;
+        [cell updateState:kDownloadStateInProgress];
+        [cell updateProgress:totalBytesReadForFile/(float)totalBytesExpectedToReadForFile];
     }];
     
     operation.outputStream = [NSOutputStream outputStreamToFileAtPath:filename append:NO];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"Did save video to disk");
         [self saveVideoToCameraRoll:filename];
-        [self extractAudioFromVideoAtPath:filename withIndexPath:indexPath];        
+        [self extractAudioFromVideoAtPath:filename withIndexPath:indexPath];
+        [cell updateState:kDownloadStateVideo];        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //NSLog(@"Failed to save video due to error:%@", error); //FIXME:"The operation couldn’t be completed. File exists" 
         [self saveVideoToCameraRoll:filename]; 
         [self extractAudioFromVideoAtPath:filename withIndexPath:indexPath];
+        [cell updateState:kDownloadStateVideo];
     }];
     
     [operation start];
@@ -204,11 +204,11 @@ static NSString* const kMostPopularFeed = @"most popular";
     [exportSession exportAsynchronouslyWithCompletionHandler:^{
         if (exportSession.status==AVAssetExportSessionStatusFailed) {
             NSLog(@"can't export audio!");
-            cell.downloadProgress.progressTintColor = [UIColor redColor];
+            [cell updateState:kDownloadStateFailed];
         }
         else
         {
-            cell.downloadProgress.progressTintColor = [UIColor greenColor];
+            [cell updateState:kDownloadStateAudio];
             [self displayComposerSheet:filename withIndexPath:indexPath]; 
         }
     }];
@@ -330,67 +330,21 @@ static NSString* const kMostPopularFeed = @"most popular";
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    static NSString *YouTubeCellIdentifier = @"YouTubeCellIdentifier";
-    
-    YTETableViewCell *cell = (YTETableViewCell *)[aTableView dequeueReusableCellWithIdentifier:YouTubeCellIdentifier];
-    if (cell == nil) {
-        cell = [[YTETableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:YouTubeCellIdentifier];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+    NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"YTETableViewCell" owner:self options:nil];
+    YTETableViewCell *cell = [topLevelObjects objectAtIndex:0];
+
+//    static NSString *youTubeCellIdentifier = @"YouTubeCellIdentifier";
+//    YTETableViewCell *cell = (YTETableViewCell *)[aTableView dequeueReusableCellWithIdentifier:youTubeCellIdentifier];
+//    if (cell == nil) {
+//        cell = [[YTETableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:youTubeCellIdentifier];
+//		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    }
 	
-	[self configureCell:cell atIndexPath:indexPath];
+	GDataEntryBase *entry = [[mEntriesFeed entries] objectAtIndex:indexPath.row];
+    cell.delegate = self;
+    [cell displayCellWithGDataEntryYouTubeVideo:(GDataEntryYouTubeVideo*)entry];
     
     return cell;    
-}
-
-- (void)configureCell:(YTETableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-	// Configure the cell.
-	GDataEntryBase *entry = [[mEntriesFeed entries] objectAtIndex:indexPath.row];
-	//NSString *title = [[entry title] stringValue];
-	//cell.textLabel.text = title;
-    
-    GDataYouTubeMediaGroup *mediaGroup = [(GDataEntryYouTubeVideo *)entry mediaGroup];
-    //GDataMediaDescription *desc = [mediaGroup mediaDescription];
-    GDataMediaTitle *mTtile = [mediaGroup mediaTitle];
-    //NSLog(@"media  group----- \n\n%@",[(GDataEntryYouTubeVideo *)entry mediaGroup]);
-    //cell.textLabel.text = [mTtile stringValue];
-    
-    /*
-     http://code.google.com/apis/youtube/2.0/reference.html#youtube_data_api_tag_media:content
-     1 - RTSP streaming URL for mobile video playback. H.263 video (up to 176x144) and AMR audio.
-     5 - HTTP URL to the embeddable player (SWF) for this video. This format is not available for a video that is not embeddable. Developers commonly add &format=5 to their queries to restrict results to videos that can be embedded on their sites.
-     6 - RTSP streaming URL for mobile video playback. MPEG-4 SP video (up to 176x144) and AAC audio.
-     */
-    //GDataMediaContent *mContent = [mediaGroup mediaContentWithFormatNumber:5];
-    //NSLog(@"URLString:%@",mContent.URLString);
-    
-    //cell.videoDesc.text = [desc stringValue];
-    // GDataMediaContent has the urls to play the video....
-    
-    /*
-     for (GDataEntryYouTubeVideo *videoEntry in [feed entries]) {
-     GDataYouTubeMediaGroup *mediaGroup = [videoEntry mediaGroup];
-     NSString *videoURL = @"http://www.youtube.com/embed/%@";
-     NSString *videoID = [mediaGroup videoID];
-     videoURL = [NSString stringWithFormat:videoURL, videoID];
-     }
-     */
-    
-    NSArray *thumbnails = [[(GDataEntryYouTubeVideo *)entry mediaGroup] mediaThumbnails];
-	NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[thumbnails objectAtIndex:0] URLString]]];
-	
-    //NSString *videoID = [[(GDataEntryYouTubeVideo *)entry mediaGroup] videoID];
-    ////NSLog(@"videoID:%@",videoID);
-    //http://www.youtube.com/watch?v=videoID";
-    //"http://www.youtube.com/v/videoID"
-    
-	//cell.videoPreview.image = [UIImage imageWithData:data];
-    [cell.videoPreview setBackgroundImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
-    [cell.videoPreview addTarget:self action:@selector(videoPreviewTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-    
-	cell.videoTitle.text = [mTtile stringValue];
-	cell.videoDescription.text = [[mediaGroup mediaDescription] contentStringValue];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -535,6 +489,7 @@ static NSString* const kMostPopularFeed = @"most popular";
     mEntriesFetchTicket = nil;
     
     [self.tableView reloadData];
+    [self.tableView setContentOffset:CGPointZero animated:YES];
     [self showSpinner:NO];
 }
 
@@ -630,9 +585,15 @@ static NSString* const kMostPopularFeed = @"most popular";
 {
     if(show)
     {
+        [UIView animateWithDuration:0.5 animations:^(void){
+            self.tableView.alpha = 0.0;
+        }];
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
     else{
+        [UIView animateWithDuration:0.5 animations:^(void){
+            self.tableView.alpha = 1.0;
+        }];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }
 }
@@ -647,3 +608,4 @@ static NSString* const kMostPopularFeed = @"most popular";
 }
 
 @end
+
