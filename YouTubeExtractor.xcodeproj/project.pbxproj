@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF15A30F171B062D0044845A /* GDataEntryYouTubeVideo+YTE.m in Sources */ = {isa = PBXBuildFile; fileRef = FF15A30D171B062D0044845A /* GDataEntryYouTubeVideo+YTE.m */; };
+		FF15A310171B062D0044845A /* YTETableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF15A30E171B062D0044845A /* YTETableViewCell.xib */; };
 		FF9ADE0517084D8900064744 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF9ADE0417084D8900064744 /* UIKit.framework */; };
 		FF9ADE0717084D8900064744 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF9ADE0617084D8900064744 /* Foundation.framework */; };
 		FF9ADE0917084D8900064744 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF9ADE0817084D8900064744 /* CoreGraphics.framework */; };
@@ -42,9 +44,7 @@
 		FF9AE1671709EE9800064744 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FF9AE1661709EE9800064744 /* Settings.bundle */; };
 		FF9AE16A1709F57300064744 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FF9AE1681709F57300064744 /* Icon.png */; };
 		FF9AE16B1709F57300064744 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF9AE1691709F57300064744 /* Icon@2x.png */; };
-		FFB987B2171ACC8D00B5961F /* GDataEntryYouTubeVideo+YTE.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB987B1171ACC8D00B5961F /* GDataEntryYouTubeVideo+YTE.m */; };
 		FFB987DA171AEF4700B5961F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFB987D9171AEF4700B5961F /* Default-568h@2x.png */; };
-		FFB987DC171AFA5900B5961F /* YTETableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFB987DB171AFA5900B5961F /* YTETableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +93,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FF15A30C171B062D0044845A /* GDataEntryYouTubeVideo+YTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GDataEntryYouTubeVideo+YTE.h"; path = "Classes/GDataEntryYouTubeVideo+YTE.h"; sourceTree = "<group>"; };
+		FF15A30D171B062D0044845A /* GDataEntryYouTubeVideo+YTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GDataEntryYouTubeVideo+YTE.m"; path = "Classes/GDataEntryYouTubeVideo+YTE.m"; sourceTree = "<group>"; };
+		FF15A30E171B062D0044845A /* YTETableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = YTETableViewCell.xib; path = Classes/YTETableViewCell.xib; sourceTree = "<group>"; };
 		FF9ADE0117084D8900064744 /* YouTubeExtractor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouTubeExtractor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF9ADE0417084D8900064744 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FF9ADE0617084D8900064744 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -466,11 +469,8 @@
 		FF9AE1661709EE9800064744 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		FF9AE1681709F57300064744 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		FF9AE1691709F57300064744 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		FFB987B0171ACC8C00B5961F /* GDataEntryYouTubeVideo+YTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GDataEntryYouTubeVideo+YTE.h"; sourceTree = "<group>"; };
-		FFB987B1171ACC8D00B5961F /* GDataEntryYouTubeVideo+YTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GDataEntryYouTubeVideo+YTE.m"; sourceTree = "<group>"; };
 		FFB987D7171AE86800B5961F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		FFB987D9171AEF4700B5961F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		FFB987DB171AFA5900B5961F /* YTETableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YTETableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,13 +534,13 @@
 			children = (
 				FF9ADE2717084E3B00064744 /* YTEAppDelegate.h */,
 				FF9ADE2817084E3B00064744 /* YTEAppDelegate.m */,
-				FF9ADF81170866F800064744 /* YTETableViewCell.h */,
-				FF9ADF82170866F800064744 /* YTETableViewCell.m */,
-				FFB987DB171AFA5900B5961F /* YTETableViewCell.xib */,
 				FF9ADE2917084E3B00064744 /* YTEViewController.h */,
 				FF9ADE2A17084E3B00064744 /* YTEViewController.m */,
-				FFB987B0171ACC8C00B5961F /* GDataEntryYouTubeVideo+YTE.h */,
-				FFB987B1171ACC8D00B5961F /* GDataEntryYouTubeVideo+YTE.m */,
+				FF9ADF81170866F800064744 /* YTETableViewCell.h */,
+				FF9ADF82170866F800064744 /* YTETableViewCell.m */,
+				FF15A30E171B062D0044845A /* YTETableViewCell.xib */,
+				FF15A30C171B062D0044845A /* GDataEntryYouTubeVideo+YTE.h */,
+				FF15A30D171B062D0044845A /* GDataEntryYouTubeVideo+YTE.m */,
 				FF9ADE1C17084D8900064744 /* MainStoryboard.storyboard */,
 				FF9ADE2D17084E5300064744 /* External */,
 				FF9ADE0B17084D8900064744 /* Supporting Files */,
@@ -1093,7 +1093,7 @@
 				FF9AE16A1709F57300064744 /* Icon.png in Resources */,
 				FF9AE16B1709F57300064744 /* Icon@2x.png in Resources */,
 				FFB987DA171AEF4700B5961F /* Default-568h@2x.png in Resources */,
-				FFB987DC171AFA5900B5961F /* YTETableViewCell.xib in Resources */,
+				FF15A310171B062D0044845A /* YTETableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1124,7 +1124,7 @@
 				FF9AE1501709B63300064744 /* MBProgressHUD.m in Sources */,
 				FF9AE15F1709BE3300064744 /* MJPopupBackgroundView.m in Sources */,
 				FF9AE1601709BE3300064744 /* UIViewController+MJPopupViewController.m in Sources */,
-				FFB987B2171ACC8D00B5961F /* GDataEntryYouTubeVideo+YTE.m in Sources */,
+				FF15A30F171B062D0044845A /* GDataEntryYouTubeVideo+YTE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
