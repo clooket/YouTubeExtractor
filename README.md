@@ -1,9 +1,10 @@
 YouTubeExtractor
 ================
 
-iOS App for extract video and audio from YouTube.
+iOS App for extract video and audio from YouTube on your iPhone.
 
-Tap on video preview to download video and audio, download files from iTunes (iTunes file sharing) or save video in camera roll and send audio to email (see settings).
+Tap on video title to show video before download it.
+Tap on video image preview (on the left) to download video (blue progress bar) and audio (green progress bar), download files with iTunes (iTunes file sharing) or save video in camera roll and send audio to email (see settings).
 
 **Author**: Denis Berton [@DenisBerton](https://twitter.com/DenisBerton)
 
