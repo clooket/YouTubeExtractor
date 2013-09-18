@@ -32,7 +32,7 @@ static NSString* const kMostPopularFeed = @"most popular";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.tableView.alpha = 0.0;
     
     [self fetchAllEntries];
